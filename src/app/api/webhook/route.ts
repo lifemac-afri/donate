@@ -11,9 +11,9 @@ export async function POST(req: Request) {
 
     if (hash === req.headers.get('x-paystack-signature')) {
       const event = JSON.parse(body);
-      
+
       // Handle different event types
-      switch(event.event) {
+      switch (event.event) {
         case 'charge.success':
           // Handle successful payment
           break;
@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: 'Webhook error' }, { status: 400 });
   }
 } 

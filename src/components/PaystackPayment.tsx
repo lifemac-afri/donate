@@ -4,6 +4,8 @@ import { PaystackButton } from 'react-paystack';
 interface PaymentProps {
   amount: number;
   email: string;
+  name: string;  
+  contact: string;
 }
 
 const PaystackPayment = ({ amount, email }: PaymentProps) => {
