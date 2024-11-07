@@ -3,11 +3,9 @@ import dynamic from 'next/dynamic';
 import { useState } from 'react';
 // import PaystackPayment from '@/components/PaystackPayment';
 
-const PaystackPayment =  dynamic(
+const PaystackPayment = dynamic(
   () => import('@/components/PaystackPayment')
-  
 );
-
 
 const PRESET_AMOUNTS = [
   { label: '₵100', value: 100 },
@@ -22,9 +20,11 @@ export default function Home() {
   const [amount, setAmount] = useState('');
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     setShowPayment(true);
   };
 
@@ -134,7 +134,22 @@ export default function Home() {
                 type="submit"
                 className="w-full bg-green-500 text-white py-4 px-6 rounded-lg text-lg font-semibold hover:bg-green-600 transition-colors"
               >
-                Donate ₵{amount || '0'}
+                {loading ? (
+                  <span className="flex items-center justify-center">
+                    <svg
+                      className="animate-spin h-5 w-5 mr-3 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                    </svg>
+                    Processing...
+                  </span>
+                ) : (
+                  `Donate ₵${amount || '0'}`
+                )}
               </button>
             </form>
           </div>
