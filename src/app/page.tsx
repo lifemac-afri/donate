@@ -1,7 +1,15 @@
 'use client';
-
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import PaystackPayment from '@/components/PaystackPayment';
+// import PaystackPayment from '@/components/PaystackPayment';
+
+const PaystackPayment =  dynamic(
+  () => import('@/components/PaystackPayment').{
+    ssr: false
+  }
+  
+);
+
 
 const PRESET_AMOUNTS = [
   { label: '₵100', value: 100 },
