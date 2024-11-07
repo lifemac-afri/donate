@@ -4,9 +4,7 @@ import { useState } from 'react';
 // import PaystackPayment from '@/components/PaystackPayment';
 
 const PaystackPayment =  dynamic(
-  () => import('@/components/PaystackPayment').{
-    ssr: false
-  }
+  () => import('@/components/PaystackPayment')
   
 );
 
