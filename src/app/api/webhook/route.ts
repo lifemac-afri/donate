@@ -24,7 +24,8 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
-  } catch (_error) {
+  } catch (error) {
+    console.error('Webhook error:', error);
     return NextResponse.json({ error: 'Webhook error' }, { status: 400 });
   }
 } 

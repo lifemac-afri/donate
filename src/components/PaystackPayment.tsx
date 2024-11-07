@@ -8,22 +8,40 @@ interface PaymentProps {
   contact: string;
 }
 
-const PaystackPayment = ({ amount, email }: PaymentProps) => {
+const PaystackPayment = ({ amount, email, name, contact }: PaymentProps) => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  const handleSuccess = () => {
+    if (typeof window !== 'undefined') {
+      window.location.href = "https://lifemac.org";
+    }
+  };
+
   const config = {
-    email: email,
+    email,
     amount: amount * 100, // Convert to pesewas (Ghana currency)
     currency: 'GHS',
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY!,
-    text: "Pay Now",
-    onSuccess: () => {
-      window.location.href = "https://lifemac.org";
+    text: "Donate Now",
+    metadata: {
+      custom_fields: [
+        {
+          display_name: "Name",
+          variable_name: "name",
+          value: name
+        },
+        {
+          display_name: "Contact",
+          variable_name: "contact",
+          value: contact
+        }
+      ]
     },
+    onSuccess: handleSuccess,
     onClose: () => {
       alert("Payment cancelled");
     }
